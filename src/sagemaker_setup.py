@@ -18,4 +18,4 @@ def setup_sagemaker():
     print(f"sagemaker bucket: {sess.default_bucket()}")
     print(f"sagemaker session region: {sess.boto_region_name}")
 
-    
+    return sess

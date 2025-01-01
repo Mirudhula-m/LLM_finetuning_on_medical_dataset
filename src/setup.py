@@ -3,8 +3,8 @@ from sagemaker.s3 import S3Uploader
 from sagemaker.huggingface import HuggingFace
 from huggingface_hub import HfFolder
 
-def model_yaml_2_S3():
-    train_config_s3_path = S3Uploader.uppload(local_path=CFG.model_yaml, desired_s3_uri=f"{CFG.s3_save_path}/config")
+def model_yaml_2_S3(model_yaml, s3_save_path):
+    train_config_s3_path = S3Uploader.upload(local_path=model_yaml, desired_s3_uri=f"{s3_save_path}/config")
     print(f"Training config uploaded to:", train_config_s3_path)
     return train_config_s3_path
 
@@ -26,7 +26,7 @@ class CFG:
 
     s3_save_path = f"s3://{sess.default_bucket()}/datasets/llama3"
     model_yaml = "llama_3_70b_fsdp_qlora.yaml"
-    train_config_s3_path = model_yaml_2_S3()
+    train_config_s3_path = model_yaml_2_S3(model_yaml, s3_save_path)
 
     # TRAINING JOB NAME
     job_name = f'llama3-70b-exp1'
